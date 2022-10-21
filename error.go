@@ -111,3 +111,11 @@ type DairaByBaladiyaError struct{}
 func (e *DairaByBaladiyaError) Error() string {
 	return "error getting daira by baladiya"
 }
+
+// FullAdjacentWilayasError is the error returned when getting full adjacent wilayas
+type FullAdjacentWilayasError struct{}
+
+// Error returns the error message
+func (e *FullAdjacentWilayasError) Error() string {
+	return "error getting full adjacent wilayas"
+}
