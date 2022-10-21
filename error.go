@@ -31,3 +31,11 @@ type AdjacentWilayasError struct{}
 func (e *AdjacentWilayasError) Error() string {
 	return "error getting adjacent wilayas"
 }
+
+// ZipCodesForWilayaError is the error returned when getting zip codes for a wilaya
+type ZipCodesForWilayaError struct{}
+
+// Error returns the error message
+func (e *ZipCodesForWilayaError) Error() string {
+	return "error getting zip codes for wilaya"
+}
