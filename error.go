@@ -103,3 +103,11 @@ type WilayaByBaladiyaError struct{}
 func (e *WilayaByBaladiyaError) Error() string {
 	return "error getting wilaya by baladiya"
 }
+
+// DairaByBaladiyaError is the error returned when getting a daira by baladiya
+type DairaByBaladiyaError struct{}
+
+// Error returns the error message
+func (e *DairaByBaladiyaError) Error() string {
+	return "error getting daira by baladiya"
+}
