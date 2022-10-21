@@ -47,3 +47,11 @@ type WilayaByPhoneCodeError struct{}
 func (e *WilayaByPhoneCodeError) Error() string {
 	return "error getting wilaya by phone code"
 }
+
+// WilayaByDairaError is the error returned when getting a wilaya by daira
+type WilayaByDairaError struct{}
+
+// Error returns the error message
+func (e *WilayaByDairaError) Error() string {
+	return "error getting wilaya by daira"
+}
