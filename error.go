@@ -87,3 +87,11 @@ type FirstPhoneCodeForWilayaError struct{}
 func (e *FirstPhoneCodeForWilayaError) Error() string {
 	return "error getting first phone code for wilaya"
 }
+
+// BaladiyatsForWilayaError is the error returned when getting baladiyats for a wilaya
+type BaladiyatsForWilayaError struct{}
+
+// Error returns the error message
+func (e *BaladiyatsForWilayaError) Error() string {
+	return "error getting baladiyats for wilaya"
+}
