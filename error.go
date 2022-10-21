@@ -71,3 +71,11 @@ type DairatsForWilayaError struct{}
 func (e *DairatsForWilayaError) Error() string {
 	return "error getting dairats for wilaya"
 }
+
+// PhoneCodesForWilayaError is the error returned when getting phone codes for a wilaya
+type PhoneCodesForWilayaError struct{}
+
+// Error returns the error message
+func (e *PhoneCodesForWilayaError) Error() string {
+	return "error getting phone codes for wilaya"
+}
