@@ -15,3 +15,11 @@ type WilayaByZipCodeError struct{}
 func (e *WilayaByZipCodeError) Error() string {
 	return "error getting wilaya by zip code"
 }
+
+// WilayaByCodeError is the error returned when getting a wilaya by code
+type WilayaByCodeError struct{}
+
+// Error returns the error message
+func (e *WilayaByCodeError) Error() string {
+	return "error getting wilaya by code"
+}
