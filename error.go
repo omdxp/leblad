@@ -55,3 +55,11 @@ type WilayaByDairaError struct{}
 func (e *WilayaByDairaError) Error() string {
 	return "error getting wilaya by daira"
 }
+
+// BaladiyatsForDairaError is the error returned when getting baladiyats for a daira
+type BaladiyatsForDairaError struct{}
+
+// Error returns the error message
+func (e *BaladiyatsForDairaError) Error() string {
+	return "error getting baladiyats for daira"
+}
