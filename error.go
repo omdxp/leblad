@@ -23,3 +23,11 @@ type WilayaByCodeError struct{}
 func (e *WilayaByCodeError) Error() string {
 	return "error getting wilaya by code"
 }
+
+// AdjacentWilayasError is the error returned when getting adjacent wilayas
+type AdjacentWilayasError struct{}
+
+// Error returns the error message
+func (e *AdjacentWilayasError) Error() string {
+	return "error getting adjacent wilayas"
+}
