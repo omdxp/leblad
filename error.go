@@ -1,5 +1,7 @@
 package leblad
 
+import "strconv"
+
 // WilayaListError is the error returned when getting the wilaya list
 type WilayaListError struct{}
 
@@ -9,11 +11,13 @@ func (e *WilayaListError) Error() string {
 }
 
 // WilayaByZipCodeError is the error returned when getting a wilaya by zip code
-type WilayaByZipCodeError struct{}
+type WilayaByZipCodeError struct {
+	ZipCode int
+}
 
 // Error returns the error message
 func (e *WilayaByZipCodeError) Error() string {
-	return "error getting wilaya by zip code"
+	return "error getting wilaya by zip code " + strconv.Itoa(e.ZipCode)
 }
 
 // WilayaByCodeError is the error returned when getting a wilaya by code
