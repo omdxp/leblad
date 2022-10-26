@@ -97,6 +97,11 @@ func getZipCodes(wilayas *[]Wilaya, wilayaIndex int) []int {
 	return (*wilayas)[wilayaIndex].PostalCodes
 }
 
+// getDairats returns the dairats of the given wilaya
+func getDairats(wilayas *[]Wilaya, wilayaIndex int) []Daira {
+	return (*wilayas)[wilayaIndex].Dairats
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT

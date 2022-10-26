@@ -451,3 +451,50 @@ func Test_getZipCodes(t *testing.T) {
 		})
 	}
 }
+
+func Test_getDairats(t *testing.T) {
+	type args struct {
+		wilayas     *[]Wilaya
+		wilayaIndex int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Daira
+	}{
+		{
+			name: "getDairats with valid wilaya index",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "Adrar",
+						Dairats: []Daira{
+							{
+								Name: "ADRAR",
+							},
+							{
+								Name: "OULED AHMED TIMMI",
+							},
+						},
+					},
+				},
+				wilayaIndex: 0,
+			},
+			want: []Daira{
+				{
+					Name: "ADRAR",
+				},
+				{
+					Name: "OULED AHMED TIMMI",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getDairats(tt.args.wilayas, tt.args.wilayaIndex); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getDairats() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

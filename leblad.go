@@ -145,3 +145,27 @@ func (l *Leblad) GetZipCodesForWilaya(matricule int) ([]int, error) {
 	zipCodes := getZipCodes(wilayas, index)
 	return zipCodes, nil
 }
+
+// GetDairatsForWilaya returns a slice of dairats for a given wilaya code
+func (l *Leblad) GetDairatsForWilaya(matricule int) ([]Daira, error) {
+	// check if the matricule is valid
+	if !isValidWilayaCode(matricule) {
+		return nil, &WilayaByCodeError{matricule}
+	}
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return nil, &DairatsForWilayaError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return nil, &DairatsForWilayaError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByCode(wilayas, matricule)
+	if index == -1 {
+		return nil, &WilayaByCodeError{matricule}
+	}
+	// get the dairats
+	dairats := getDairats(wilayas, index)
+	return dairats, nil
+}
