@@ -6,7 +6,8 @@ import (
 )
 
 const (
-	ZIP_COUNT = 48073
+	ZIP_COUNT    = 48073
+	WILAYA_COUNT = 48
 )
 
 // openJsonFile opens a local json file with the given name
@@ -76,7 +77,22 @@ func getWilayaIndexByZipCode(wilayas *[]Wilaya, zipCode int) int {
 	return -1
 }
 
+// getWilayaIndexByCode returns the index of the wilaya that has the given code
+func getWilayaIndexByCode(wilayas *[]Wilaya, wilayaCode int) int {
+	for i, w := range *wilayas {
+		if w.Matricule == wilayaCode {
+			return i
+		}
+	}
+	return -1
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT
+}
+
+// isValidWilayaCode returns true if the given wilaya code is valid
+func isValidWilayaCode(wilayaCode int) bool {
+	return wilayaCode >= 1 && wilayaCode <= WILAYA_COUNT
 }
