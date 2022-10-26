@@ -363,3 +363,51 @@ func Test_isValidWilayaCode(t *testing.T) {
 		})
 	}
 }
+
+func Test_getAdjacentWilayas(t *testing.T) {
+	type args struct {
+		wilayas     *[]Wilaya
+		wilayaIndex int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "getAdjacentWilayas with valid wilaya index",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name:      "Adrar",
+						Matricule: 1,
+						AdjacentWilayas: []int{
+							2,
+							3,
+						},
+					},
+					{
+						Name:      "Chlef",
+						Matricule: 2,
+						AdjacentWilayas: []int{
+							1,
+							3,
+						},
+					},
+				},
+				wilayaIndex: 0,
+			},
+			want: []int{
+				2,
+				3,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getAdjacentWilayas(tt.args.wilayas, tt.args.wilayaIndex); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getAdjacentWilayas() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
