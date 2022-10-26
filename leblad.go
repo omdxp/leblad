@@ -24,8 +24,9 @@ func New() *Leblad {
 	return &Leblad{}
 }
 
-// GetWilayaList returns a slice of all wilayas
-func (l *Leblad) GetWilayaList() ([]Wilaya, error) {
+// GetWilayaList returns a slice of all wilayas.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetWilayaList(fields ...string) ([]Wilaya, error) {
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
 		return nil, &WilayaListError{}
@@ -33,6 +34,10 @@ func (l *Leblad) GetWilayaList() ([]Wilaya, error) {
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
 		return nil, &WilayaListError{}
+	}
+	// filter the results
+	if len(fields) > 0 {
+		wilayas = filterWilayaList(wilayas, fields...)
 	}
 	return *wilayas, nil
 }
