@@ -65,6 +65,35 @@ func filterWilaya(w Wilaya, fields ...string) Wilaya {
 	return f
 }
 
+// filterDairats filters the fields of the given slice of dairats
+func filterDairats(dairats []Daira, fields ...string) []Daira {
+	var filtered []Daira
+	for _, d := range dairats {
+		filtered = append(filtered, filterDaira(d, fields...))
+	}
+	return filtered
+}
+
+// filterDaira filters the fields of the given daira
+func filterDaira(d Daira, fields ...string) Daira {
+	var f Daira
+	for _, field := range fields {
+		switch field {
+		case "code":
+			f.Code = d.Code
+		case "name":
+			f.Name = d.Name
+		case "name_ar":
+			f.NameAr = d.NameAr
+		case "name_en":
+			f.NameEn = d.NameEn
+		case "baladyiats":
+			f.Baladyiats = d.Baladyiats
+		}
+	}
+	return f
+}
+
 // getWilayaIndexByZipCode returns the index of the wilaya that contains the given zip code
 func getWilayaIndexByZipCode(wilayas *[]Wilaya, zipCode int) int {
 	for i, w := range *wilayas {
@@ -95,6 +124,11 @@ func getAdjacentWilayas(wilayas *[]Wilaya, wilayaIndex int) []int {
 // getZipCodes returns the zip codes of the given wilaya
 func getZipCodes(wilayas *[]Wilaya, wilayaIndex int) []int {
 	return (*wilayas)[wilayaIndex].PostalCodes
+}
+
+// getDairats returns the dairats of the given wilaya
+func getDairats(wilayas *[]Wilaya, wilayaIndex int) []Daira {
+	return (*wilayas)[wilayaIndex].Dairats
 }
 
 // isValidZipCode returns true if the given zip code is valid

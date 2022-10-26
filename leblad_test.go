@@ -171,3 +171,46 @@ func TestLeblad_GetZipCodesForWilaya(t *testing.T) {
 		})
 	}
 }
+
+func TestLeblad_GetDairatsForWilaya(t *testing.T) {
+	type args struct {
+		matricule int
+		fields    []string
+	}
+	tests := []struct {
+		name    string
+		l       *Leblad
+		args    args
+		want    []Daira
+		wantErr bool
+	}{
+		{
+			name:    "GetDairatsForWilaya for existing wilaya",
+			l:       New(),
+			args:    args{matricule: 1},
+			wantErr: false,
+		},
+		{
+			name:    "GetDairatsForWilaya for non-existing wilaya",
+			l:       New(),
+			args:    args{matricule: 999},
+			wantErr: true,
+		},
+		{
+			name:    "GetDairatsForWilaya for existing wilaya with fields",
+			l:       New(),
+			args:    args{matricule: 1, fields: []string{"name"}},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := tt.l
+			_, err := l.GetDairatsForWilaya(tt.args.matricule, tt.args.fields...)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Leblad.GetDairatsForWilaya() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}

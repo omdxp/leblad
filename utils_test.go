@@ -451,3 +451,162 @@ func Test_getZipCodes(t *testing.T) {
 		})
 	}
 }
+
+func Test_getDairats(t *testing.T) {
+	type args struct {
+		wilayas     *[]Wilaya
+		wilayaIndex int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Daira
+	}{
+		{
+			name: "getDairats with valid wilaya index",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "Adrar",
+						Dairats: []Daira{
+							{
+								Name: "ADRAR",
+							},
+							{
+								Name: "OULED AHMED TIMMI",
+							},
+						},
+					},
+				},
+				wilayaIndex: 0,
+			},
+			want: []Daira{
+				{
+					Name: "ADRAR",
+				},
+				{
+					Name: "OULED AHMED TIMMI",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getDairats(tt.args.wilayas, tt.args.wilayaIndex); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getDairats() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_filterDaira(t *testing.T) {
+	type args struct {
+		d      Daira
+		fields []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want Daira
+	}{
+		{
+			name: "filterDaira with valid fields",
+			args: args{
+				d: Daira{
+					Name: "ADRAR",
+					Code: 1,
+				},
+				fields: []string{
+					"name",
+				},
+			},
+			want: Daira{
+				Name: "ADRAR",
+			},
+		},
+		{
+			name: "filterDaira with invalid fields",
+			args: args{
+				d: Daira{
+					Name: "ADRAR",
+				},
+				fields: []string{
+					"invalid",
+				},
+			},
+			want: Daira{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := filterDaira(tt.args.d, tt.args.fields...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("filterDaira() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_filterDairats(t *testing.T) {
+	type args struct {
+		dairats []Daira
+		fields  []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Daira
+	}{
+		{
+			name: "filterDairats with valid fields",
+			args: args{
+				dairats: []Daira{
+					{
+						Name: "ADRAR",
+						Code: 1,
+					},
+					{
+						Name: "OULED AHMED TIMMI",
+						Code: 2,
+					},
+				},
+				fields: []string{
+					"name",
+				},
+			},
+			want: []Daira{
+				{
+					Name: "ADRAR",
+				},
+				{
+					Name: "OULED AHMED TIMMI",
+				},
+			},
+		},
+		{
+			name: "filterDairats with invalid fields",
+			args: args{
+				dairats: []Daira{
+					{
+						Name: "ADRAR",
+					},
+					{
+						Name: "OULED AHMED TIMMI",
+					},
+				},
+				fields: []string{
+					"invalid",
+				},
+			},
+			want: []Daira{
+				{}, {},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := filterDairats(tt.args.dairats, tt.args.fields...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("filterDairats() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
