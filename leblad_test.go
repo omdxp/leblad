@@ -99,3 +99,39 @@ func TestLeblad_GetWilayaByCode(t *testing.T) {
 		})
 	}
 }
+
+func TestLeblad_GetAdjacentWilayas(t *testing.T) {
+	type args struct {
+		matricule int
+	}
+	tests := []struct {
+		name    string
+		l       *Leblad
+		args    args
+		want    []int
+		wantErr bool
+	}{
+		{
+			name:    "GetAdjacentWilayas for existing wilaya",
+			l:       New(),
+			args:    args{matricule: 1},
+			wantErr: false,
+		},
+		{
+			name:    "GetAdjacentWilayas for non-existing wilaya",
+			l:       New(),
+			args:    args{matricule: 999},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := tt.l
+			_, err := l.GetAdjacentWilayas(tt.args.matricule)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Leblad.GetAdjacentWilayas() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}

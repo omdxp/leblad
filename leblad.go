@@ -97,3 +97,27 @@ func (l *Leblad) GetWilayaByCode(matricule int, fields ...string) (Wilaya, error
 	}
 	return (*wilayas)[index], nil
 }
+
+// GetAdjacentWilayas returns a slice of adjacent wilayas by a given wilaya code
+func (l *Leblad) GetAdjacentWilayas(matricule int) ([]int, error) {
+	// check if the matricule is valid
+	if !isValidWilayaCode(matricule) {
+		return nil, &WilayaByCodeError{matricule}
+	}
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return nil, &AdjacentWilayasError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return nil, &AdjacentWilayasError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByCode(wilayas, matricule)
+	if index == -1 {
+		return nil, &WilayaByCodeError{matricule}
+	}
+	// get the adjacent wilayas
+	adjacentWilayas := getAdjacentWilayas(wilayas, index)
+	return adjacentWilayas, nil
+}
