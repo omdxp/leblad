@@ -121,3 +121,27 @@ func (l *Leblad) GetAdjacentWilayas(matricule int) ([]int, error) {
 	adjacentWilayas := getAdjacentWilayas(wilayas, index)
 	return adjacentWilayas, nil
 }
+
+// GetZipCodesForWilaya returns a slice of zip codes for a given wilaya code
+func (l *Leblad) GetZipCodesForWilaya(matricule int) ([]int, error) {
+	// check if the matricule is valid
+	if !isValidWilayaCode(matricule) {
+		return nil, &WilayaByCodeError{matricule}
+	}
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return nil, &ZipCodesForWilayaError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return nil, &ZipCodesForWilayaError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByCode(wilayas, matricule)
+	if index == -1 {
+		return nil, &WilayaByCodeError{matricule}
+	}
+	// get the zip codes
+	zipCodes := getZipCodes(wilayas, index)
+	return zipCodes, nil
+}

@@ -92,6 +92,11 @@ func getAdjacentWilayas(wilayas *[]Wilaya, wilayaIndex int) []int {
 	return (*wilayas)[wilayaIndex].AdjacentWilayas
 }
 
+// getZipCodes returns the zip codes of the given wilaya
+func getZipCodes(wilayas *[]Wilaya, wilayaIndex int) []int {
+	return (*wilayas)[wilayaIndex].PostalCodes
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT

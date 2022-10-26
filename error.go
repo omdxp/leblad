@@ -27,7 +27,7 @@ type WilayaByCodeError struct {
 
 // Error returns the error message
 func (e *WilayaByCodeError) Error() string {
-	return "error getting wilaya by code" + strconv.Itoa(e.Code)
+	return "error getting wilaya by code " + strconv.Itoa(e.Code)
 }
 
 // AdjacentWilayasError is the error returned when getting adjacent wilayas

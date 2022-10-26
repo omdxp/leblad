@@ -411,3 +411,43 @@ func Test_getAdjacentWilayas(t *testing.T) {
 		})
 	}
 }
+
+func Test_getZipCodes(t *testing.T) {
+	type args struct {
+		wilayas     *[]Wilaya
+		wilayaIndex int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "getZipCodes with valid wilaya index",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name:      "Adrar",
+						Matricule: 1,
+						PostalCodes: []int{
+							1000,
+							1001,
+						},
+					},
+				},
+				wilayaIndex: 0,
+			},
+			want: []int{
+				1000,
+				1001,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getZipCodes(tt.args.wilayas, tt.args.wilayaIndex); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getZipCodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
