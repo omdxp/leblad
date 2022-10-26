@@ -45,6 +45,10 @@ func (l *Leblad) GetWilayaList(fields ...string) ([]Wilaya, error) {
 // GetWilayaByZipCode returns a wilaya by its zip code.
 // It has a variadic argument that can be used to filter the results
 func (l *Leblad) GetWilayaByZipCode(zipCode int, fields ...string) (Wilaya, error) {
+	// check if the zip code is valid
+	if !isValidZipCode(zipCode) {
+		return Wilaya{}, &WilayaByZipCodeError{zipCode}
+	}
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
 		return Wilaya{}, &WilayaListError{}

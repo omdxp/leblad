@@ -243,3 +243,36 @@ func Test_getWilayaIndexByZipCode(t *testing.T) {
 		})
 	}
 }
+
+func Test_isValidZipCode(t *testing.T) {
+	type args struct {
+		zipCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "isValidZipCode with valid zip code",
+			args: args{
+				zipCode: 1000,
+			},
+			want: true,
+		},
+		{
+			name: "isValidZipCode with invalid zip code",
+			args: args{
+				zipCode: 999999,
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isValidZipCode(tt.args.zipCode); got != tt.want {
+				t.Errorf("isValidZipCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

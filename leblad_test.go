@@ -39,10 +39,16 @@ func TestLeblad_GetWilayaByZipCode(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "GetWilayaByZipCode",
+			name:    "GetWilayaByZipCode for existing zip code",
 			l:       New(),
 			args:    args{zipCode: 16000},
 			wantErr: false,
+		},
+		{
+			name:    "GetWilayaByZipCode for non-existing zip code",
+			l:       New(),
+			args:    args{zipCode: 99999},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

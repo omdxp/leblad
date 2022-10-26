@@ -5,6 +5,10 @@ import (
 	"os"
 )
 
+const (
+	ZIP_COUNT = 48073
+)
+
 // openJsonFile opens a local json file with the given name
 func openJsonFile(n string) ([]byte, error) {
 	bytes, err := os.ReadFile(n)
@@ -70,4 +74,9 @@ func getWilayaIndexByZipCode(wilayas *[]Wilaya, zipCode int) int {
 		}
 	}
 	return -1
+}
+
+// isValidZipCode returns true if the given zip code is valid
+func isValidZipCode(zipCode int) bool {
+	return zipCode >= 1000 && zipCode <= ZIP_COUNT
 }
