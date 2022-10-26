@@ -276,3 +276,90 @@ func Test_isValidZipCode(t *testing.T) {
 		})
 	}
 }
+
+func Test_getWilayaIndexByCode(t *testing.T) {
+	type args struct {
+		wilayas    *[]Wilaya
+		wilayaCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getWilayaIndexByCode with valid wilaya code",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name:      "Adrar",
+						Matricule: 1,
+					},
+					{
+						Name:      "Chlef",
+						Matricule: 2,
+					},
+				},
+				wilayaCode: 1,
+			},
+			want: 0,
+		},
+		{
+			name: "getWilayaIndexByCode with invalid wilaya code",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name:      "Adrar",
+						Matricule: 1,
+					},
+					{
+						Name:      "Chlef",
+						Matricule: 2,
+					},
+				},
+				wilayaCode: 999999,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getWilayaIndexByCode(tt.args.wilayas, tt.args.wilayaCode); got != tt.want {
+				t.Errorf("getWilayaIndexByCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_isValidWilayaCode(t *testing.T) {
+	type args struct {
+		wilayaCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "isValidWilayaCode with valid wilaya code",
+			args: args{
+				wilayaCode: 1,
+			},
+			want: true,
+		},
+		{
+			name: "isValidWilayaCode with invalid wilaya code",
+			args: args{
+				wilayaCode: 999999,
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isValidWilayaCode(tt.args.wilayaCode); got != tt.want {
+				t.Errorf("isValidWilayaCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

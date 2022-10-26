@@ -69,3 +69,31 @@ func (l *Leblad) GetWilayaByZipCode(zipCode int, fields ...string) (Wilaya, erro
 	}
 	return (*wilayas)[index], nil
 }
+
+// GetWilayaByCode returns a wilaya by its matricule.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetWilayaByCode(matricule int, fields ...string) (Wilaya, error) {
+	// check if the matricule is valid
+	if !isValidWilayaCode(matricule) {
+		return Wilaya{}, &WilayaByCodeError{matricule}
+	}
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return Wilaya{}, &WilayaListError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return Wilaya{}, &WilayaListError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByCode(wilayas, matricule)
+	if index == -1 {
+		return Wilaya{}, &WilayaByCodeError{matricule}
+	}
+	// filter the results
+	if len(fields) > 0 {
+		w := filterWilaya((*wilayas)[index], fields...)
+		return w, nil
+	}
+	return (*wilayas)[index], nil
+}
