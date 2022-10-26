@@ -2,7 +2,7 @@ package leblad
 
 // Wilaya is a struct that represents a wilaya
 type Wilaya struct {
-	Matricule       int     `json:"matricule"`
+	Matricule       int     `json:"mattricule"`
 	NameAr          string  `json:"name_ar"`
 	NameBer         string  `json:"name_ber"`
 	NameEn          string  `json:"name_en"`
