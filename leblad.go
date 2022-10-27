@@ -329,3 +329,29 @@ func (l *Leblad) GetFirstPhoneCodeForWilaya(wilayaName string) (int, error) {
 	phoneCode := getFirstPhoneCode((*wilayas)[index])
 	return phoneCode, nil
 }
+
+// GetBaladyiatsForWilaya returns a slice of baladyiats for a given wilaya name.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetBaladyiatsForWilaya(wilayaName string, fields ...string) ([]Baladyia, error) {
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return nil, &BaladyiatsForWilayaError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return nil, &BaladyiatsForWilayaError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByName(wilayas, wilayaName)
+	if index == -1 {
+		return nil, &WilayaByWilayaNameError{wilayaName}
+	}
+	// get the baladyiats
+	baladyiats := getBaladyiatsForWilaya((*wilayas)[index])
+	// filter the results
+	if len(fields) > 0 {
+		b := filterBaladyiats(baladyiats, fields...)
+		return b, nil
+	}
+	return baladyiats, nil
+}

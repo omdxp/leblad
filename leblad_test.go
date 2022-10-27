@@ -458,3 +458,46 @@ func TestLeblad_GetFirstPhoneCodeForWilaya(t *testing.T) {
 		})
 	}
 }
+
+func TestLeblad_GetBaladyiatsForWilaya(t *testing.T) {
+	type args struct {
+		wilayaName string
+		fields     []string
+	}
+	tests := []struct {
+		name    string
+		l       *Leblad
+		args    args
+		want    []Baladyia
+		wantErr bool
+	}{
+		{
+			name:    "GetBaladyiatsForWilaya for existing wilaya name",
+			l:       New(),
+			args:    args{wilayaName: "Adrar"},
+			wantErr: false,
+		},
+		{
+			name:    "GetBaladyiatsForWilaya for non-existing wilaya name",
+			l:       New(),
+			args:    args{wilayaName: "Non existing wilaya"},
+			wantErr: true,
+		},
+		{
+			name:    "GetBaladyiatsForWilaya for existing wilaya name with fields",
+			l:       New(),
+			args:    args{wilayaName: "Adrar", fields: []string{"name"}},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := tt.l
+			_, err := l.GetBaladyiatsForWilaya(tt.args.wilayaName, tt.args.fields...)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Leblad.GetBaladyiatsForWilaya() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}
