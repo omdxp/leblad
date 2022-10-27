@@ -1259,3 +1259,55 @@ func Test_getWilayaIndexByBaladyiaName(t *testing.T) {
 		})
 	}
 }
+
+func Test_getDairaIndexByBaladyiaName(t *testing.T) {
+	type args struct {
+		dairats      []Daira
+		baladyiaName string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getDairaIndexByBaladyiaName with valid baladyia name",
+			args: args{
+				dairats: []Daira{
+					{
+						Baladyiats: []Baladyia{
+							{
+								Name: "ADRAR",
+							},
+						},
+					},
+				},
+				baladyiaName: "ADRAR",
+			},
+			want: 0,
+		},
+		{
+			name: "getDairaIndexByBaladyiaName with invalid baladyia name",
+			args: args{
+				dairats: []Daira{
+					{
+						Baladyiats: []Baladyia{
+							{
+								Name: "ADRAR",
+							},
+						},
+					},
+				},
+				baladyiaName: "ADRAR2",
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getDairaIndexByBaladyiaName(tt.args.dairats, tt.args.baladyiaName); got != tt.want {
+				t.Errorf("getDairaIndexByBaladyiaName() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
