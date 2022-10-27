@@ -775,3 +775,180 @@ func Test_getWilayaIndexByDairaName(t *testing.T) {
 		})
 	}
 }
+
+func Test_getDairaIndexByName(t *testing.T) {
+	type args struct {
+		dairats   []Daira
+		dairaName string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getDairaIndexByName with valid daira name",
+			args: args{
+				dairats: []Daira{
+					{
+						Name: "ADRAR",
+					},
+				},
+				dairaName: "ADRAR",
+			},
+			want: 0,
+		},
+		{
+			name: "getDairaIndexByName with invalid daira name",
+			args: args{
+				dairats: []Daira{
+					{
+						Name: "ADRAR",
+					},
+				},
+				dairaName: "invalid",
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getDairaIndexByName(tt.args.dairats, tt.args.dairaName); got != tt.want {
+				t.Errorf("getDairaIndexByName() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getBaladyiats(t *testing.T) {
+	type args struct {
+		dairats    []Daira
+		dairaIndex int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Baladyia
+	}{
+		{
+			name: "getBaladyiats with valid daira index",
+			args: args{
+				dairats: []Daira{
+					{
+						Name: "ADRAR",
+						Baladyiats: []Baladyia{
+							{
+								Name: "ADRAR",
+							},
+						},
+					},
+				},
+				dairaIndex: 0,
+			},
+			want: []Baladyia{
+				{
+					Name: "ADRAR",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getBaladyiats(tt.args.dairats, tt.args.dairaIndex); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getBaladyiats() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_filterBaladyia(t *testing.T) {
+	type args struct {
+		b      Baladyia
+		fields []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want Baladyia
+	}{
+		{
+			name: "filterBaladyia with valid fields",
+			args: args{
+				b: Baladyia{
+					Name: "ADRAR",
+				},
+				fields: []string{"name"},
+			},
+			want: Baladyia{
+				Name: "ADRAR",
+			},
+		},
+		{
+			name: "filterBaladyia with invalid fields",
+			args: args{
+				b: Baladyia{
+					Name: "ADRAR",
+				},
+				fields: []string{"invalid"},
+			},
+			want: Baladyia{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := filterBaladyia(tt.args.b, tt.args.fields...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("filterBaladyia() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_filterBaladyiats(t *testing.T) {
+	type args struct {
+		baladyiats []Baladyia
+		fields     []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Baladyia
+	}{
+		{
+			name: "filterBaladyiats with valid fields",
+			args: args{
+				baladyiats: []Baladyia{
+					{
+						Name: "ADRAR",
+					},
+				},
+				fields: []string{"name"},
+			},
+			want: []Baladyia{
+				{
+					Name: "ADRAR",
+				},
+			},
+		},
+		{
+			name: "filterBaladyiats with invalid fields",
+			args: args{
+				baladyiats: []Baladyia{
+					{
+						Name: "ADRAR",
+					},
+				},
+				fields: []string{"invalid"},
+			},
+			want: []Baladyia{
+				{},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := filterBaladyiats(tt.args.baladyiats, tt.args.fields...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("filterBaladyiats() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

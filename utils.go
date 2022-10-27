@@ -94,6 +94,33 @@ func filterDaira(d Daira, fields ...string) Daira {
 	return f
 }
 
+// filterBaladyiats filters the fields of the given slice of baladyiats
+func filterBaladyiats(baladyiats []Baladyia, fields ...string) []Baladyia {
+	var filtered []Baladyia
+	for _, b := range baladyiats {
+		filtered = append(filtered, filterBaladyia(b, fields...))
+	}
+	return filtered
+}
+
+// filterBaladyia filters the fields of the given baladyia
+func filterBaladyia(b Baladyia, fields ...string) Baladyia {
+	var f Baladyia
+	for _, field := range fields {
+		switch field {
+		case "code":
+			f.Code = b.Code
+		case "name":
+			f.Name = b.Name
+		case "name_ar":
+			f.NameAr = b.NameAr
+		case "name_en":
+			f.NameEn = b.NameEn
+		}
+	}
+	return f
+}
+
 // getWilayaIndexByPhoneCode returns the index of the wilaya that contains the given phone code
 func getWilayaIndexByPhoneCode(wilayas *[]Wilaya, phoneCode int) int {
 	for i, w := range *wilayas {
@@ -153,6 +180,21 @@ func getZipCodes(wilayas *[]Wilaya, wilayaIndex int) []int {
 // getDairats returns the dairats of the given wilaya
 func getDairats(wilayas *[]Wilaya, wilayaIndex int) []Daira {
 	return (*wilayas)[wilayaIndex].Dairats
+}
+
+// getBaladyiats returns the baladyiats of the given daira
+func getBaladyiats(dairats []Daira, dairaIndex int) []Baladyia {
+	return dairats[dairaIndex].Baladyiats
+}
+
+// getDairaIndexByName returns the index of the daira that has the given name
+func getDairaIndexByName(dairats []Daira, dairaName string) int {
+	for i, d := range dairats {
+		if d.Name == dairaName {
+			return i
+		}
+	}
+	return -1
 }
 
 // isValidZipCode returns true if the given zip code is valid
