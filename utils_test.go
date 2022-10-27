@@ -610,3 +610,98 @@ func Test_filterDairats(t *testing.T) {
 		})
 	}
 }
+
+func Test_isValidPhoneCode(t *testing.T) {
+	type args struct {
+		phoneCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "isValidPhoneCode with valid phone code",
+			args: args{
+				phoneCode: 21,
+			},
+			want: true,
+		},
+		{
+			name: "isValidPhoneCode with invalid phone code",
+			args: args{
+				phoneCode: 0,
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isValidPhoneCode(tt.args.phoneCode); got != tt.want {
+				t.Errorf("isValidPhoneCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getWilayaIndexByPhoneCode(t *testing.T) {
+	type args struct {
+		wilayas   *[]Wilaya
+		phoneCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getWilayaIndexByPhoneCode with valid phone code",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "Adrar",
+						PhoneCodes: []int{
+							21,
+						},
+					},
+					{
+						Name: "Chlef",
+						PhoneCodes: []int{
+							23,
+						},
+					},
+				},
+				phoneCode: 21,
+			},
+			want: 0,
+		},
+		{
+			name: "getWilayaIndexByPhoneCode with invalid phone code",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "Adrar",
+						PhoneCodes: []int{
+							21,
+						},
+					},
+					{
+						Name: "Chlef",
+						PhoneCodes: []int{
+							23,
+						},
+					},
+				},
+				phoneCode: 0,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getWilayaIndexByPhoneCode(tt.args.wilayas, tt.args.phoneCode); got != tt.want {
+				t.Errorf("getWilayaIndexByPhoneCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

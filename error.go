@@ -47,11 +47,13 @@ func (e *ZipCodesForWilayaError) Error() string {
 }
 
 // WilayaByPhoneCodeError is the error returned when getting a wilaya by phone code
-type WilayaByPhoneCodeError struct{}
+type WilayaByPhoneCodeError struct {
+	PhoneCode int
+}
 
 // Error returns the error message
 func (e *WilayaByPhoneCodeError) Error() string {
-	return "error getting wilaya by phone code"
+	return "error getting wilaya by phone code " + strconv.Itoa(e.PhoneCode)
 }
 
 // WilayaByDairaError is the error returned when getting a wilaya by daira

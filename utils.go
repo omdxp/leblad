@@ -94,6 +94,18 @@ func filterDaira(d Daira, fields ...string) Daira {
 	return f
 }
 
+// getWilayaIndexByPhoneCode returns the index of the wilaya that contains the given phone code
+func getWilayaIndexByPhoneCode(wilayas *[]Wilaya, phoneCode int) int {
+	for i, w := range *wilayas {
+		for _, c := range w.PhoneCodes {
+			if c == phoneCode {
+				return i
+			}
+		}
+	}
+	return -1
+}
+
 // getWilayaIndexByZipCode returns the index of the wilaya that contains the given zip code
 func getWilayaIndexByZipCode(wilayas *[]Wilaya, zipCode int) int {
 	for i, w := range *wilayas {
@@ -139,4 +151,9 @@ func isValidZipCode(zipCode int) bool {
 // isValidWilayaCode returns true if the given wilaya code is valid
 func isValidWilayaCode(wilayaCode int) bool {
 	return wilayaCode >= 1 && wilayaCode <= WILAYA_COUNT
+}
+
+// isValidPhoneCode returns true if the given phone code is valid
+func isValidPhoneCode(phoneCode int) bool {
+	return phoneCode >= 21 && phoneCode <= 59
 }

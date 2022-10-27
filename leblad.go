@@ -175,3 +175,31 @@ func (l *Leblad) GetDairatsForWilaya(matricule int, fields ...string) ([]Daira, 
 	}
 	return dairats, nil
 }
+
+// GetWilayaByPhoneCode returns a wilaya by its phone code.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetWilayaByPhoneCode(phoneCode int, fields ...string) (Wilaya, error) {
+	// check if the phone code is valid
+	if !isValidPhoneCode(phoneCode) {
+		return Wilaya{}, &WilayaByPhoneCodeError{phoneCode}
+	}
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return Wilaya{}, &WilayaListError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return Wilaya{}, &WilayaListError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByPhoneCode(wilayas, phoneCode)
+	if index == -1 {
+		return Wilaya{}, &WilayaByPhoneCodeError{phoneCode}
+	}
+	// filter the results
+	if len(fields) > 0 {
+		w := filterWilaya((*wilayas)[index], fields...)
+		return w, nil
+	}
+	return (*wilayas)[index], nil
+}
