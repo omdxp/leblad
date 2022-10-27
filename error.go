@@ -82,6 +82,26 @@ func (e *DairatsForWilayaError) Error() string {
 	return "error getting dairats for wilaya"
 }
 
+// WilayaByDairaCodeError is the error returned when getting a wilaya by daira code
+type WilayaByDairaCodeError struct {
+	DairaCode int
+}
+
+// Error returns the error message
+func (e *WilayaByDairaCodeError) Error() string {
+	return "error getting wilaya by daira code " + strconv.Itoa(e.DairaCode)
+}
+
+// DairaByDairaCodeError is the error returned when getting a daira by daira code
+type DairaByDairaCodeError struct {
+	DairaCode int
+}
+
+// Error returns the error message
+func (e *DairaByDairaCodeError) Error() string {
+	return "error getting daira by daira code " + strconv.Itoa(e.DairaCode)
+}
+
 // DairaByDairaNameError is the error returned when getting a daira by daira name
 type DairaByDairaNameError struct {
 	DairaName string

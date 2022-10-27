@@ -343,3 +343,46 @@ func TestLeblad_GetBaladyiatsForDaira(t *testing.T) {
 		})
 	}
 }
+
+func TestLeblad_GetBaladyiatsForDairaCode(t *testing.T) {
+	type args struct {
+		dairaCode int
+		fields    []string
+	}
+	tests := []struct {
+		name    string
+		l       *Leblad
+		args    args
+		want    []Baladyia
+		wantErr bool
+	}{
+		{
+			name:    "GetBaladyiatsForDairaCode for existing daira code",
+			l:       New(),
+			args:    args{dairaCode: 101},
+			wantErr: false,
+		},
+		{
+			name:    "GetBaladyiatsForDairaCode for non-existing daira code",
+			l:       New(),
+			args:    args{dairaCode: 999},
+			wantErr: true,
+		},
+		{
+			name:    "GetBaladyiatsForDairaCode for existing daira code with fields",
+			l:       New(),
+			args:    args{dairaCode: 101, fields: []string{"name"}},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := tt.l
+			_, err := l.GetBaladyiatsForDairaCode(tt.args.dairaCode, tt.args.fields...)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Leblad.GetBaladyiatsForDairaCode() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}

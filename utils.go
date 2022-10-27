@@ -197,6 +197,28 @@ func getDairaIndexByName(dairats []Daira, dairaName string) int {
 	return -1
 }
 
+// getWilayaIndexByDairaCode returns the index of the wilaya that contains the given daira code
+func getWilayaIndexByDairaCode(wilayas *[]Wilaya, dairaCode int) int {
+	for i, w := range *wilayas {
+		for _, d := range w.Dairats {
+			if d.Code == dairaCode {
+				return i
+			}
+		}
+	}
+	return -1
+}
+
+// getDairaIndexByCode returns the index of the daira that has the given code
+func getDairaIndexByCode(dairats []Daira, dairaCode int) int {
+	for i, d := range dairats {
+		if d.Code == dairaCode {
+			return i
+		}
+	}
+	return -1
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT

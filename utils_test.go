@@ -952,3 +952,101 @@ func Test_filterBaladyiats(t *testing.T) {
 		})
 	}
 }
+
+func Test_getWilayaIndexByDairaCode(t *testing.T) {
+	type args struct {
+		wilayas   *[]Wilaya
+		dairaCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getWilayaIndexByDairaCode with valid daira code",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "ADRAR",
+						Dairats: []Daira{
+							{
+								Code: 1,
+							},
+						},
+					},
+				},
+				dairaCode: 1,
+			},
+			want: 0,
+		},
+		{
+			name: "getWilayaIndexByDairaCode with invalid daira code",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "ADRAR",
+						Dairats: []Daira{
+							{
+								Code: 1,
+							},
+						},
+					},
+				},
+				dairaCode: 2,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getWilayaIndexByDairaCode(tt.args.wilayas, tt.args.dairaCode); got != tt.want {
+				t.Errorf("getWilayaIndexByDairaCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getDairaIndexByCode(t *testing.T) {
+	type args struct {
+		dairats   []Daira
+		dairaCode int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getDairaIndexByCode with valid daira code",
+			args: args{
+				dairats: []Daira{
+					{
+						Code: 1,
+					},
+				},
+				dairaCode: 1,
+			},
+			want: 0,
+		},
+		{
+			name: "getDairaIndexByCode with invalid daira code",
+			args: args{
+				dairats: []Daira{
+					{
+						Code: 1,
+					},
+				},
+				dairaCode: 2,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getDairaIndexByCode(tt.args.dairats, tt.args.dairaCode); got != tt.want {
+				t.Errorf("getDairaIndexByCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

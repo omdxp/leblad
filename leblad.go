@@ -258,3 +258,34 @@ func (l *Leblad) GetBaladyiatsForDaira(dairaName string, fields ...string) ([]Ba
 	}
 	return baladyiats, nil
 }
+
+// GetBaladyiatsForDairaCode returns a slice of baladyiats for a given daira code.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetBaladyiatsForDairaCode(dairaCode int, fields ...string) ([]Baladyia, error) {
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return nil, &BaladyiatsForDairaError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return nil, &BaladyiatsForDairaError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByDairaCode(wilayas, dairaCode)
+	if index == -1 {
+		return nil, &WilayaByDairaCodeError{dairaCode}
+	}
+	// get the index of the daira
+	dairaIndex := getDairaIndexByCode((*wilayas)[index].Dairats, dairaCode)
+	if dairaIndex == -1 {
+		return nil, &DairaByDairaCodeError{dairaCode}
+	}
+	// get the baladyiats
+	baladyiats := getBaladyiats((*wilayas)[index].Dairats, dairaIndex)
+	// filter the results
+	if len(fields) > 0 {
+		b := filterBaladyiats(baladyiats, fields...)
+		return b, nil
+	}
+	return baladyiats, nil
+}
