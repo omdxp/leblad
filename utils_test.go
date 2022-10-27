@@ -1131,3 +1131,31 @@ func Test_getPhoneCodes(t *testing.T) {
 		})
 	}
 }
+
+func Test_getFirstPhoneCode(t *testing.T) {
+	type args struct {
+		wilaya Wilaya
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getFirstPhoneCode with valid wilaya",
+			args: args{
+				wilaya: Wilaya{
+					PhoneCodes: []int{21, 22},
+				},
+			},
+			want: 21,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getFirstPhoneCode(tt.args.wilaya); got != tt.want {
+				t.Errorf("getFirstPhoneCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
