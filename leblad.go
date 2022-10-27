@@ -309,3 +309,23 @@ func (l *Leblad) GetPhoneCodesForWilaya(wilayaName string) ([]int, error) {
 	phoneCodes := getPhoneCodes((*wilayas)[index])
 	return phoneCodes, nil
 }
+
+// GetFirstPhoneCodeForWilaya returns the first phone code for a given wilaya name.
+func (l *Leblad) GetFirstPhoneCodeForWilaya(wilayaName string) (int, error) {
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return 0, &FirstPhoneCodeForWilayaError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return 0, &FirstPhoneCodeForWilayaError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByName(wilayas, wilayaName)
+	if index == -1 {
+		return 0, &WilayaByWilayaNameError{wilayaName}
+	}
+	// get the first phone code
+	phoneCode := getFirstPhoneCode((*wilayas)[index])
+	return phoneCode, nil
+}

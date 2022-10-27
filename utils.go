@@ -234,6 +234,11 @@ func getPhoneCodes(wilaya Wilaya) []int {
 	return wilaya.PhoneCodes
 }
 
+// getFirstPhoneCode returns the first phone code of the given wilaya
+func getFirstPhoneCode(wilaya Wilaya) int {
+	return wilaya.PhoneCodes[0]
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT
