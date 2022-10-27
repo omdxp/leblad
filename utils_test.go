@@ -1050,3 +1050,84 @@ func Test_getDairaIndexByCode(t *testing.T) {
 		})
 	}
 }
+
+func Test_getWilayaIndexByName(t *testing.T) {
+	type args struct {
+		wilayas    *[]Wilaya
+		wilayaName string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getWilayaIndexByName with valid wilaya name",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "ADRAR",
+					},
+				},
+				wilayaName: "ADRAR",
+			},
+			want: 0,
+		},
+		{
+			name: "getWilayaIndexByName with invalid wilaya name",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "ADRAR",
+					},
+				},
+				wilayaName: "invalid",
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getWilayaIndexByName(tt.args.wilayas, tt.args.wilayaName); got != tt.want {
+				t.Errorf("getWilayaIndexByName() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getPhoneCodes(t *testing.T) {
+	type args struct {
+		wilaya Wilaya
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "getPhoneCodes with valid wilaya",
+			args: args{
+				wilaya: Wilaya{
+					PhoneCodes: []int{21, 22},
+				},
+			},
+			want: []int{21, 22},
+		},
+		{
+			name: "getPhoneCodes with empty phone codes",
+			args: args{
+				wilaya: Wilaya{
+					PhoneCodes: []int{},
+				},
+			},
+			want: []int{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getPhoneCodes(tt.args.wilaya); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getPhoneCodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -219,6 +219,21 @@ func getDairaIndexByCode(dairats []Daira, dairaCode int) int {
 	return -1
 }
 
+// getWilayaIndexByName returns the index of the wilaya that has the given name
+func getWilayaIndexByName(wilayas *[]Wilaya, wilayaName string) int {
+	for i, w := range *wilayas {
+		if w.Name == wilayaName {
+			return i
+		}
+	}
+	return -1
+}
+
+// getPhoneCodes returns the phone codes of the given wilaya
+func getPhoneCodes(wilaya Wilaya) []int {
+	return wilaya.PhoneCodes
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT

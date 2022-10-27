@@ -112,6 +112,16 @@ func (e *DairaByDairaNameError) Error() string {
 	return "error getting daira by daira name " + e.DairaName
 }
 
+// WilayaByWilayaNameError is the error returned when getting a wilaya by wilaya name
+type WilayaByWilayaNameError struct {
+	WilayaName string
+}
+
+// Error returns the error message
+func (e *WilayaByWilayaNameError) Error() string {
+	return "error getting wilaya by wilaya name " + e.WilayaName
+}
+
 // PhoneCodesForWilayaError is the error returned when getting phone codes for a wilaya
 type PhoneCodesForWilayaError struct{}
 
