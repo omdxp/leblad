@@ -67,10 +67,10 @@ func (e *WilayaByDairaNameError) Error() string {
 }
 
 // BaladiyatsForDairaError is the error returned when getting baladiyats for a daira
-type BaladiyatsForDairaError struct{}
+type BaladyiatsForDairaError struct{}
 
 // Error returns the error message
-func (e *BaladiyatsForDairaError) Error() string {
+func (e *BaladyiatsForDairaError) Error() string {
 	return "error getting baladiyats for daira"
 }
 
@@ -80,6 +80,16 @@ type DairatsForWilayaError struct{}
 // Error returns the error message
 func (e *DairatsForWilayaError) Error() string {
 	return "error getting dairats for wilaya"
+}
+
+// DairaByDairaNameError is the error returned when getting a daira by daira name
+type DairaByDairaNameError struct {
+	DairaName string
+}
+
+// Error returns the error message
+func (e *DairaByDairaNameError) Error() string {
+	return "error getting daira by daira name " + e.DairaName
 }
 
 // PhoneCodesForWilayaError is the error returned when getting phone codes for a wilaya
