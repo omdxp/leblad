@@ -1159,3 +1159,43 @@ func Test_getFirstPhoneCode(t *testing.T) {
 		})
 	}
 }
+
+func Test_getBaladyiatsForWilaya(t *testing.T) {
+	type args struct {
+		wilaya Wilaya
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Baladyia
+	}{
+		{
+			name: "getBaladyiatsForWilaya with valid wilaya",
+			args: args{
+				wilaya: Wilaya{
+					Dairats: []Daira{
+						{
+							Baladyiats: []Baladyia{
+								{
+									Name: "ADRAR",
+								},
+							},
+						},
+					},
+				},
+			},
+			want: []Baladyia{
+				{
+					Name: "ADRAR",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getBaladyiatsForWilaya(tt.args.wilaya); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getBaladyiatsForWilaya() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

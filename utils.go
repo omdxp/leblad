@@ -239,6 +239,15 @@ func getFirstPhoneCode(wilaya Wilaya) int {
 	return wilaya.PhoneCodes[0]
 }
 
+// getBaladyiatsForWilaya returns the baladyiats of the given wilaya
+func getBaladyiatsForWilaya(wilaya Wilaya) []Baladyia {
+	var baladyiats []Baladyia
+	for _, d := range wilaya.Dairats {
+		baladyiats = append(baladyiats, d.Baladyiats...)
+	}
+	return baladyiats
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT
