@@ -44,58 +44,58 @@ func (l *Leblad) GetWilayaList(fields ...string) ([]Wilaya, error) {
 
 // GetWilayaByZipCode returns a wilaya by its zip code.
 // It has a variadic argument that can be used to filter the results
-func (l *Leblad) GetWilayaByZipCode(zipCode int, fields ...string) (Wilaya, error) {
+func (l *Leblad) GetWilayaByZipCode(zipCode int, fields ...string) (*Wilaya, error) {
 	// check if the zip code is valid
 	if !isValidZipCode(zipCode) {
-		return Wilaya{}, &WilayaByZipCodeError{zipCode}
+		return nil, &WilayaByZipCodeError{zipCode}
 	}
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	// get the index of the wilaya
 	index := getWilayaIndexByZipCode(wilayas, zipCode)
 	if index == -1 {
-		return Wilaya{}, &WilayaByZipCodeError{zipCode}
+		return nil, &WilayaByZipCodeError{zipCode}
 	}
 	// filter the results
 	if len(fields) > 0 {
 		w := filterWilaya((*wilayas)[index], fields...)
-		return w, nil
+		return &w, nil
 	}
-	return (*wilayas)[index], nil
+	return &(*wilayas)[index], nil
 }
 
 // GetWilayaByCode returns a wilaya by its matricule.
 // It has a variadic argument that can be used to filter the results
-func (l *Leblad) GetWilayaByCode(matricule int, fields ...string) (Wilaya, error) {
+func (l *Leblad) GetWilayaByCode(matricule int, fields ...string) (*Wilaya, error) {
 	// check if the matricule is valid
 	if !isValidWilayaCode(matricule) {
-		return Wilaya{}, &WilayaByCodeError{matricule}
+		return nil, &WilayaByCodeError{matricule}
 	}
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	// get the index of the wilaya
 	index := getWilayaIndexByCode(wilayas, matricule)
 	if index == -1 {
-		return Wilaya{}, &WilayaByCodeError{matricule}
+		return nil, &WilayaByCodeError{matricule}
 	}
 	// filter the results
 	if len(fields) > 0 {
 		w := filterWilaya((*wilayas)[index], fields...)
-		return w, nil
+		return &w, nil
 	}
-	return (*wilayas)[index], nil
+	return &(*wilayas)[index], nil
 }
 
 // GetAdjacentWilayas returns a slice of adjacent wilayas by a given wilaya code
@@ -178,54 +178,54 @@ func (l *Leblad) GetDairatsForWilaya(matricule int, fields ...string) ([]Daira, 
 
 // GetWilayaByPhoneCode returns a wilaya by its phone code.
 // It has a variadic argument that can be used to filter the results
-func (l *Leblad) GetWilayaByPhoneCode(phoneCode int, fields ...string) (Wilaya, error) {
+func (l *Leblad) GetWilayaByPhoneCode(phoneCode int, fields ...string) (*Wilaya, error) {
 	// check if the phone code is valid
 	if !isValidPhoneCode(phoneCode) {
-		return Wilaya{}, &WilayaByPhoneCodeError{phoneCode}
+		return nil, &WilayaByPhoneCodeError{phoneCode}
 	}
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	// get the index of the wilaya
 	index := getWilayaIndexByPhoneCode(wilayas, phoneCode)
 	if index == -1 {
-		return Wilaya{}, &WilayaByPhoneCodeError{phoneCode}
+		return nil, &WilayaByPhoneCodeError{phoneCode}
 	}
 	// filter the results
 	if len(fields) > 0 {
 		w := filterWilaya((*wilayas)[index], fields...)
-		return w, nil
+		return &w, nil
 	}
-	return (*wilayas)[index], nil
+	return &(*wilayas)[index], nil
 }
 
 // GetWilayaByDairaName returns a wilaya by its daira name.
 // It has a variadic argument that can be used to filter the results
-func (l *Leblad) GetWilayaByDairaName(dairaName string, fields ...string) (Wilaya, error) {
+func (l *Leblad) GetWilayaByDairaName(dairaName string, fields ...string) (*Wilaya, error) {
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
-		return Wilaya{}, &WilayaListError{}
+		return nil, &WilayaListError{}
 	}
 	// get the index of the wilaya
 	index := getWilayaIndexByDairaName(wilayas, dairaName)
 	if index == -1 {
-		return Wilaya{}, &WilayaByDairaNameError{dairaName}
+		return nil, &WilayaByDairaNameError{dairaName}
 	}
 	// filter the results
 	if len(fields) > 0 {
 		w := filterWilaya((*wilayas)[index], fields...)
-		return w, nil
+		return &w, nil
 	}
-	return (*wilayas)[index], nil
+	return &(*wilayas)[index], nil
 }
 
 // GetBaladyiatsForDaira returns a slice of baladyiats for a given daira name.
@@ -358,53 +358,53 @@ func (l *Leblad) GetBaladyiatsForWilaya(wilayaName string, fields ...string) ([]
 
 // GetWilayaByBaladyiaName returns a wilaya for a given baladyia name.
 // It has a variadic argument that can be used to filter the results
-func (l *Leblad) GetWilayaByBaladyiaName(baladyiaName string, fields ...string) (Wilaya, error) {
+func (l *Leblad) GetWilayaByBaladyiaName(baladyiaName string, fields ...string) (*Wilaya, error) {
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
-		return Wilaya{}, &WilayaByBaladyiaNameError{baladyiaName}
+		return nil, &WilayaByBaladyiaNameError{baladyiaName}
 	}
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
-		return Wilaya{}, &WilayaByBaladyiaNameError{baladyiaName}
+		return nil, &WilayaByBaladyiaNameError{baladyiaName}
 	}
 	// get the index of the wilaya
 	index := getWilayaIndexByBaladyiaName(wilayas, baladyiaName)
 	if index == -1 {
-		return Wilaya{}, &WilayaByBaladyiaNameError{}
+		return nil, &WilayaByBaladyiaNameError{}
 	}
 	// filter the results
 	if len(fields) > 0 {
 		w := filterWilaya((*wilayas)[index], fields...)
-		return w, nil
+		return &w, nil
 	}
-	return (*wilayas)[index], nil
+	return &(*wilayas)[index], nil
 }
 
 // GetDairaByBaladyiaName returns a daira for a given baladyia name.
 // It has a variadic argument that can be used to filter the results
-func (l *Leblad) GetDairaByBaladyiaName(baladyiaName string, fields ...string) (Daira, error) {
+func (l *Leblad) GetDairaByBaladyiaName(baladyiaName string, fields ...string) (*Daira, error) {
 	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
 	if err != nil {
-		return Daira{}, &DairaByBaladyiaNameError{baladyiaName}
+		return nil, &DairaByBaladyiaNameError{baladyiaName}
 	}
 	wilayas, err := unmarshalWilayaListJson(bytes)
 	if err != nil {
-		return Daira{}, &DairaByBaladyiaNameError{baladyiaName}
+		return nil, &DairaByBaladyiaNameError{baladyiaName}
 	}
 	// get the index of the wilaya
 	index := getWilayaIndexByBaladyiaName(wilayas, baladyiaName)
 	if index == -1 {
-		return Daira{}, &WilayaByBaladyiaNameError{baladyiaName}
+		return nil, &WilayaByBaladyiaNameError{baladyiaName}
 	}
 	// get the index of the daira
 	dairaIndex := getDairaIndexByBaladyiaName((*wilayas)[index].Dairats, baladyiaName)
 	if dairaIndex == -1 {
-		return Daira{}, &DairaByBaladyiaNameError{baladyiaName}
+		return nil, &DairaByBaladyiaNameError{baladyiaName}
 	}
 	// filter the results
 	if len(fields) > 0 {
 		d := filterDaira((*wilayas)[index].Dairats[dairaIndex], fields...)
-		return d, nil
+		return &d, nil
 	}
-	return (*wilayas)[index].Dairats[dairaIndex], nil
+	return &(*wilayas)[index].Dairats[dairaIndex], nil
 }
