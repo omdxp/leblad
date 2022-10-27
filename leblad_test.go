@@ -257,3 +257,46 @@ func TestLeblad_GetWilayaByPhoneCode(t *testing.T) {
 		})
 	}
 }
+
+func TestLeblad_GetWilayaByDairaName(t *testing.T) {
+	type args struct {
+		dairaName string
+		fields    []string
+	}
+	tests := []struct {
+		name    string
+		l       *Leblad
+		args    args
+		want    Wilaya
+		wantErr bool
+	}{
+		{
+			name:    "GetWilayaByDairaName for existing daira name",
+			l:       New(),
+			args:    args{dairaName: "ADRAR"},
+			wantErr: false,
+		},
+		{
+			name:    "GetWilayaByDairaName for non-existing daira name",
+			l:       New(),
+			args:    args{dairaName: "Non existing daira"},
+			wantErr: true,
+		},
+		{
+			name:    "GetWilayaByDairaName for existing daira name with fields",
+			l:       New(),
+			args:    args{dairaName: "ADRAR", fields: []string{"name"}},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := tt.l
+			_, err := l.GetWilayaByDairaName(tt.args.dairaName, tt.args.fields...)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Leblad.GetWilayaByDairaName() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+		})
+	}
+}

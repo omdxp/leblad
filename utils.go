@@ -106,6 +106,18 @@ func getWilayaIndexByPhoneCode(wilayas *[]Wilaya, phoneCode int) int {
 	return -1
 }
 
+// getWilayaIndexByDairaName returns the index of the wilaya that contains the given daira name
+func getWilayaIndexByDairaName(wilayas *[]Wilaya, dairaName string) int {
+	for i, w := range *wilayas {
+		for _, d := range w.Dairats {
+			if d.Name == dairaName {
+				return i
+			}
+		}
+	}
+	return -1
+}
+
 // getWilayaIndexByZipCode returns the index of the wilaya that contains the given zip code
 func getWilayaIndexByZipCode(wilayas *[]Wilaya, zipCode int) int {
 	for i, w := range *wilayas {

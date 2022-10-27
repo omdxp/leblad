@@ -203,3 +203,27 @@ func (l *Leblad) GetWilayaByPhoneCode(phoneCode int, fields ...string) (Wilaya, 
 	}
 	return (*wilayas)[index], nil
 }
+
+// GetWilayaByDairaName returns a wilaya by its daira name.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetWilayaByDairaName(dairaName string, fields ...string) (Wilaya, error) {
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return Wilaya{}, &WilayaListError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return Wilaya{}, &WilayaListError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByDairaName(wilayas, dairaName)
+	if index == -1 {
+		return Wilaya{}, &WilayaByDairaNameError{dairaName}
+	}
+	// filter the results
+	if len(fields) > 0 {
+		w := filterWilaya((*wilayas)[index], fields...)
+		return w, nil
+	}
+	return (*wilayas)[index], nil
+}

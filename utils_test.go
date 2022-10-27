@@ -705,3 +705,73 @@ func Test_getWilayaIndexByPhoneCode(t *testing.T) {
 		})
 	}
 }
+
+func Test_getWilayaIndexByDairaName(t *testing.T) {
+	type args struct {
+		wilayas   *[]Wilaya
+		dairaName string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "getWilayaIndexByDairaName with valid daira name",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "Adrar",
+						Dairats: []Daira{
+							{
+								Name: "ADRAR",
+							},
+						},
+					},
+					{
+						Name: "Chlef",
+						Dairats: []Daira{
+							{
+								Name: "CHLEF",
+							},
+						},
+					},
+				},
+				dairaName: "ADRAR",
+			},
+			want: 0,
+		},
+		{
+			name: "getWilayaIndexByDairaName with invalid daira name",
+			args: args{
+				wilayas: &[]Wilaya{
+					{
+						Name: "Adrar",
+						Dairats: []Daira{
+							{
+								Name: "ADRAR",
+							},
+						},
+					},
+					{
+						Name: "Chlef",
+						Dairats: []Daira{
+							{
+								Name: "CHLEF",
+							},
+						},
+					},
+				},
+				dairaName: "invalid",
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getWilayaIndexByDairaName(tt.args.wilayas, tt.args.dairaName); got != tt.want {
+				t.Errorf("getWilayaIndexByDairaName() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
