@@ -289,3 +289,23 @@ func (l *Leblad) GetBaladyiatsForDairaCode(dairaCode int, fields ...string) ([]B
 	}
 	return baladyiats, nil
 }
+
+// GetPhoneCodesForWilaya returns a slice of phone codes for a given wilaya name.
+func (l *Leblad) GetPhoneCodesForWilaya(wilayaName string) ([]int, error) {
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return nil, &PhoneCodesForWilayaError{}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return nil, &PhoneCodesForWilayaError{}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByName(wilayas, wilayaName)
+	if index == -1 {
+		return nil, &WilayaByWilayaNameError{wilayaName}
+	}
+	// get the phone codes
+	phoneCodes := getPhoneCodes((*wilayas)[index])
+	return phoneCodes, nil
+}
