@@ -248,6 +248,20 @@ func getBaladyiatsForWilaya(wilaya Wilaya) []Baladyia {
 	return baladyiats
 }
 
+// getWilayaIndexByBaladyiaName returns the index of the wilaya that contains the given baladyia name
+func getWilayaIndexByBaladyiaName(wilayas *[]Wilaya, baladyiaName string) int {
+	for i, w := range *wilayas {
+		for _, d := range w.Dairats {
+			for _, b := range d.Baladyiats {
+				if b.Name == baladyiaName {
+					return i
+				}
+			}
+		}
+	}
+	return -1
+}
+
 // isValidZipCode returns true if the given zip code is valid
 func isValidZipCode(zipCode int) bool {
 	return zipCode >= 1000 && zipCode <= ZIP_COUNT
