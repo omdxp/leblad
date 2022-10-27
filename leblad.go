@@ -379,3 +379,32 @@ func (l *Leblad) GetWilayaByBaladyiaName(baladyiaName string, fields ...string) 
 	}
 	return (*wilayas)[index], nil
 }
+
+// GetDairaByBaladyiaName returns a daira for a given baladyia name.
+// It has a variadic argument that can be used to filter the results
+func (l *Leblad) GetDairaByBaladyiaName(baladyiaName string, fields ...string) (Daira, error) {
+	bytes, err := openJsonFile(filepath.Join(dirPath, "data", "WilayaList.json"))
+	if err != nil {
+		return Daira{}, &DairaByBaladyiaNameError{baladyiaName}
+	}
+	wilayas, err := unmarshalWilayaListJson(bytes)
+	if err != nil {
+		return Daira{}, &DairaByBaladyiaNameError{baladyiaName}
+	}
+	// get the index of the wilaya
+	index := getWilayaIndexByBaladyiaName(wilayas, baladyiaName)
+	if index == -1 {
+		return Daira{}, &WilayaByBaladyiaNameError{baladyiaName}
+	}
+	// get the index of the daira
+	dairaIndex := getDairaIndexByBaladyiaName((*wilayas)[index].Dairats, baladyiaName)
+	if dairaIndex == -1 {
+		return Daira{}, &DairaByBaladyiaNameError{baladyiaName}
+	}
+	// filter the results
+	if len(fields) > 0 {
+		d := filterDaira((*wilayas)[index].Dairats[dairaIndex], fields...)
+		return d, nil
+	}
+	return (*wilayas)[index].Dairats[dairaIndex], nil
+}
