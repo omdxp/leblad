@@ -265,3 +265,40 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetBaladyiatsForDaira
+
+Get baladyiats for a daira
+
+```go
+baladyiats, err := l.GetBaladyiatsForDaira("ADRAR")
+if err != nil {
+    panic(err)
+}
+```
+
+Filter baladyiats by a specific field
+
+```go
+baladyiats, err := l.GetBaladyiatsForDaira("ADRAR", "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+baladyiats, err := l.GetBaladyiatsForDaira("ADRAR", "name", "code")
+if err != nil {
+    panic(err)
+}
+```
+
+fields can be one of the following:
+| baladyia field | description |
+| --- | --- |
+| code | baladyia code |
+| name | baladyia name |
+| name_ar | baladyia name in arabic |
+| name_en | baladyia name in english |
