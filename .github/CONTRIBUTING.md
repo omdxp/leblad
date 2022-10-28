@@ -1,12 +1,11 @@
 # Contributing
 
 Contributions are always welcome. Before contributing please read the
-[code of conduct](https://github.com/dzcode-io/leblad/blob/master/.github/CODE_OF_CONDUCT.md) &
+[code of conduct](CODE_OF_CONDUCT.md) &
 [search the issue tracker](https://github.com/omdxp/leblad-go/issues); your issue
-may have already been discussed or fixed in `develop`.  To contribute:
+may have already been discussed or fixed in `develop`. To contribute:
 
 - Fork [leblad-go](https://github.com/omdxp/leblad-go) repository (see: [How to fork a repository on Github](https://help.github.com/articles/fork-a-repo/)).
-- Install modules (run `go mod tidy`).
 - Do your magic :smiley:, and please make sure that all tests are passing (run `go test -v ./...`)
 - Commit your changes (we would be supper happy if you use [commitzen](https://egghead.io/lessons/javascript-writing-conventional-commits-with-commitizen)).
 - [Send a pull request](https://help.github.com/articles/using-pull-requests/) and point it to `main` branch.

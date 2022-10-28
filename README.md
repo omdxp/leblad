@@ -441,3 +441,11 @@ if err != nil {
     panic(err)
 }
 ```
+
+## Contributing
+
+Contributions are welcome, please read the [contributing guide](.github/CONTRIBUTING.md) for more information.
+
+## License
+
+[MIT](LICENSE)
