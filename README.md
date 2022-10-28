@@ -47,3 +47,45 @@ init a new leblad instance
 ```go
 l := leblad.New()
 ```
+
+### GetWilayaList
+
+Get all wilayas
+
+```go
+wilayas, err := l.GetWilayaList()
+if err != nil {
+    panic(err)
+}
+```
+
+Filter wilayas by a specific field
+
+```go
+wilayas, err := l.GetWilayaList("name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+wilayas, err := l.GetWilayaList("name", "dairats", "matricule")
+if err != nil {
+    panic(err)
+}
+```
+
+fields can be one of the following:
+| wilaya field | description |
+| --- | --- |
+| matricule | wilaya matricule |
+| name_ar | wilaya name in arabic |
+| name_ber | wilaya name in berber |
+| name_en | wilaya name in english |
+| name | wilaya name in french |
+| phoneCodes | wilaya phone codes |
+| postalCodes | wilaya postal codes |
+| dairats | wilaya dairats |
+| adjacentWilayas | wilaya adjacent wilayas |
