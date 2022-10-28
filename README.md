@@ -147,3 +147,14 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetAdjacentWilayas
+
+Get adjacent wilayas as a slice of wilaya codes
+
+```go
+wilayas, err := l.GetAdjacentWilayas(1)
+if err != nil {
+    panic(err)
+}
+```
