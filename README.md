@@ -236,3 +236,32 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetWilayaByDairaName
+
+Get wilaya by daira name
+
+```go
+wilaya, err := l.GetWilayaByDairaName("ADRAR")
+if err != nil {
+    panic(err)
+}
+```
+
+Filter wilaya by a specific field
+
+```go
+wilaya, err := l.GetWilayaByDairaName("ADRAR", "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+wilaya, err := l.GetWilayaByDairaName("ADRAR", "name", "dairats", "matricule")
+if err != nil {
+    panic(err)
+}
+```
