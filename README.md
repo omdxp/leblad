@@ -169,3 +169,41 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetDairatsForWilaya
+
+Get dairats for a wilaya
+
+```go
+dairats, err := l.GetDairatsForWilaya(1)
+if err != nil {
+    panic(err)
+}
+```
+
+Filter dairats by a specific field
+
+```go
+dairats, err := l.GetDairatsForWilaya(1, "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+dairats, err := l.GetDairatsForWilaya(1, "name", "code", "baladyiats")
+if err != nil {
+    panic(err)
+}
+```
+
+fields can be one of the following:
+| daira field | description |
+| --- | --- |
+| code | daira code |
+| name | daira name |
+| name_ar | daira name in arabic |
+| name_en | daira name in english |
+| baladyiats | daira baladyiats |
