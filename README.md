@@ -353,3 +353,32 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetBaladyiatsForWilaya
+
+Get baladyiats for a wilaya
+
+```go
+baladyiats, err := l.GetBaladyiatsForWilaya("Adrar")
+if err != nil {
+    panic(err)
+}
+```
+
+Filter baladyiats by a specific field
+
+```go
+baladyiats, err := l.GetBaladyiatsForWilaya("Adrar", "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+baladyiats, err := l.GetBaladyiatsForWilaya("Adrar", "name", "code")
+if err != nil {
+    panic(err)
+}
+```
