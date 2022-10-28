@@ -89,3 +89,32 @@ fields can be one of the following:
 | postalCodes | wilaya postal codes |
 | dairats | wilaya dairats |
 | adjacentWilayas | wilaya adjacent wilayas |
+
+### GetWilayaByZipCode
+
+Get wilaya by zip code
+
+```go
+wilaya, err := l.GetWilayaByZipCode(1000)
+if err != nil {
+    panic(err)
+}
+```
+
+Filter wilaya by a specific field
+
+```go
+wilaya, err := l.GetWilayaByZipCode(1000, "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+wilaya, err := l.GetWilayaByZipCode(1000, "name", "dairats", "matricule")
+if err != nil {
+    panic(err)
+}
+```
