@@ -158,3 +158,14 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetZipCodesForWilaya
+
+Get zip codes for a wilaya
+
+```go
+zipCodes, err := l.GetZipCodesForWilaya(1)
+if err != nil {
+    panic(err)
+}
+```
