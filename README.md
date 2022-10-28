@@ -207,3 +207,32 @@ fields can be one of the following:
 | name_ar | daira name in arabic |
 | name_en | daira name in english |
 | baladyiats | daira baladyiats |
+
+### GetWilayaByPhoneCode
+
+Get wilaya by phone code
+
+```go
+wilaya, err := l.GetWilayaByPhoneCode(49)
+if err != nil {
+    panic(err)
+}
+```
+
+Filter wilaya by a specific field
+
+```go
+wilaya, err := l.GetWilayaByPhoneCode(49, "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+wilaya, err := l.GetWilayaByPhoneCode(49, "name", "dairats", "matricule")
+if err != nil {
+    panic(err)
+}
+```
