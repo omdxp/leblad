@@ -18,4 +18,13 @@ jobs:
           go-version: 1.19
 
       - name: Test
-        run: go test -v ./...
+        run: go test -v ./... -coverprofile=coverage.txt -covermode=atomic
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.txt
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
