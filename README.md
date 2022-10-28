@@ -302,3 +302,32 @@ fields can be one of the following:
 | name | baladyia name |
 | name_ar | baladyia name in arabic |
 | name_en | baladyia name in english |
+
+### GetBaladyiatsForDairaCode
+
+Get baladyiats for a daira code
+
+```go
+baladyiats, err := l.GetBaladyiatsForDairaCode(101)
+if err != nil {
+    panic(err)
+}
+```
+
+Filter baladyiats by a specific field
+
+```go
+baladyiats, err := l.GetBaladyiatsForDairaCode(101, "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+baladyiats, err := l.GetBaladyiatsForDairaCode(101, "name", "code")
+if err != nil {
+    panic(err)
+}
+```
