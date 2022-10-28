@@ -39,3 +39,11 @@ func main() {
     }
 }
 ```
+
+## API
+
+init a new leblad instance
+
+```go
+l := leblad.New()
+```
