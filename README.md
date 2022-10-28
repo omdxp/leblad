@@ -411,3 +411,32 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetDairaByBaladyiaName
+
+Get daira by baladyia name
+
+```go
+daira, err := l.GetDairaByBaladyiaName("ADRAR")
+if err != nil {
+    panic(err)
+}
+```
+
+Filter daira by a specific field
+
+```go
+daira, err := l.GetDairaByBaladyiaName("ADRAR", "name")
+if err != nil {
+    panic(err)
+}
+```
+
+it accept a variadic number of fields
+
+```go
+daira, err := l.GetDairaByBaladyiaName("ADRAR", "name", "code")
+if err != nil {
+    panic(err)
+}
+```
