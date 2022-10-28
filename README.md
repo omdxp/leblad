@@ -342,3 +342,14 @@ if err != nil {
     panic(err)
 }
 ```
+
+### GetFirstPhoneCodeForWilaya
+
+Get first phone code for a wilaya
+
+```go
+phoneCode, err := l.GetFirstPhoneCodeForWilaya("Adrar")
+if err != nil {
+    panic(err)
+}
+```
