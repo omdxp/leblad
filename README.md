@@ -1,7 +1,7 @@
 # leblad
 
 [![Build Status](https://github.com/omdxp/leblad/workflows/Test%20CI/badge.svg)](https://github.com/omdxp/leblad/actions?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/omdxp/leblad/branch/main/graph/badge.svg?token=XF4IY9HFNS)](https://codecov.io/gh/omdxp/leblad)
+[![codecov](https://codecov.io/gh/omdxp/leblad/branch/main/graph/badge.svg?token=XF4IY9HFNS)](https://codecov.io/gh/omdxp/leblad) [![Go Report Card](https://goreportcard.com/badge/github.com/omdxp/leblad)](https://goreportcard.com/report/github.com/omdxp/leblad)
 
 A go module providing a list of Algerian administrative areas with many useful APIs, based on [dzcode-io/leblad](https://github.com/dzcode-io/leblad)
 
